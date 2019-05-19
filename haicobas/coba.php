@@ -54,11 +54,11 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 			</form>
 		</div>
 		<br>
-		<br>
 		<h4>Total Files : <?php echo sizeof($result->getBlobs())?></h4>
 		<table class='table table-hover'>
 			<thead>
 				<tr>
+					<th>No</th>
 					<th>File Name</th>
 					<th>File URL</th>
 					<th>Action</th>
@@ -67,10 +67,12 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 			<tbody>
 				<?php
 				do {
+					$i=1;
 					foreach ($result->getBlobs() as $blob)
 					{
 						?>
 						<tr>
+							<td><?php echo $i ?></td>
 							<td><?php echo $blob->getName() ?></td>
 							<td><?php echo $blob->getUrl() ?></td>
 							<td>
@@ -81,6 +83,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 							</td>
 						</tr>
 						<?php
+						$i++;
 					}
 					$listBlobsOptions->setContinuationToken($result->getContinuationToken());
 				} while($result->getContinuationToken());
